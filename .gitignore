@@ -1,0 +1,4 @@
+storage/cores
+storage/primaryKey
+node_modules
+package-lock.json

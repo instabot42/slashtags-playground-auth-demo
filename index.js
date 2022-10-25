@@ -3,6 +3,8 @@ import JsonRPC from 'simple-jsonrpc-js';
 import { WebSocketServer } from 'ws'
 import fs from 'fs'
 
+const port = 9002
+
 import SDK, { SlashURL } from '@synonymdev/slashtags-sdk';
 import { Server } from '@synonymdev/slashtags-auth';
 
@@ -75,7 +77,7 @@ function validateToken(token, user) {
   return true
 }
 
-const wss = new WebSocketServer({ port: 9002, host: '0.0.0.0' });
+const wss = new WebSocketServer({ port, host: '0.0.0.0' });
 
 wss.on('connection', (socket) => {
   console.log('connection seen')
@@ -99,4 +101,4 @@ wss.on('connection', (socket) => {
   });
 });
 
-console.log(`Server is now listenng on port 9002`);
+console.log(`Server is now listenng on port ${port}`);

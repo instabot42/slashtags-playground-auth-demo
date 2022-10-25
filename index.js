@@ -1,7 +1,6 @@
 import jrpcLite from 'jsonrpc-lite';
-import { fastify } from 'fastify';
 import JsonRPC from 'simple-jsonrpc-js';
-import {WebSocketServer} from 'ws'
+import { WebSocketServer } from 'ws'
 import fs from 'fs'
 
 import SDK, { SlashURL } from '@synonymdev/slashtags-sdk';
@@ -9,8 +8,8 @@ import { Server } from '@synonymdev/slashtags-auth';
 
 /** START SLASHTAGS AUTH SETUP **/
 
-let saved 
-try { saved = fs.readFileSync('./storage/primaryKey') } catch {}
+let saved
+try { saved = fs.readFileSync('./storage/primaryKey') } catch { }
 
 const sdk = new SDK({ storage: './storage', primaryKey: saved })
 
@@ -32,7 +31,7 @@ if (!exists) await publicDrive.put('/profile.json', Buffer.from(JSON.stringify({
 
 const server = new Server(slashtag, {
   onauthz: (token, remote) => {
-    if (!isValidUser(remote)) return { status: "error", message: "sign up first!"}
+    if (!isValidUser(remote)) return { status: "error", message: "sign up first!" }
 
     const url = SlashURL.format(remote)
 
@@ -43,7 +42,7 @@ const server = new Server(slashtag, {
       return { status: "ok" }
     }
     console.log('Got invalid session', token, "from:", url);
-    return {status: "error", message: "invalid token"}
+    return { status: "error", message: "invalid token" }
   },
   onmagiclink: (remote) => {
     const user = SlashURL.encode(remote)
@@ -70,17 +69,16 @@ function validateToken(token, user) {
   if (!socket) return false
   socket.send(
     jrpcLite
-    .notification('userAuthenticated', {user})
-    .serialize(),
+      .notification('userAuthenticated', { user })
+      .serialize(),
   );
   return true
 }
 
-const app = fastify();
-
-const wss = new WebSocketServer({ port: 9002 });
+const wss = new WebSocketServer({ port: 9002, host: '0.0.0.0' });
 
 wss.on('connection', (socket) => {
+  console.log('connection seen')
   const jrpc = new JsonRPC();
 
   socket.onmessage = (event) => jrpc.messageHandler(event.data);
@@ -102,4 +100,3 @@ wss.on('connection', (socket) => {
 });
 
 console.log(`Server is now listenng on port 9002`);
-app.listen(9000, function () {});

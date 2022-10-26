@@ -5,7 +5,7 @@
     "dev": "nodemon index.js"
   },
   "engines": {
-    "node": "14.x"
+    "node": ">= 14.x"
   },
   "dependencies": {
     "@synonymdev/slashtags-auth": "^1.0.0-alpha.1",

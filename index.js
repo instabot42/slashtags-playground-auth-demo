@@ -3,7 +3,7 @@ import JsonRPC from 'simple-jsonrpc-js';
 import { WebSocketServer } from 'ws'
 import fs from 'fs'
 
-const port = 9002
+const port = 8880
 
 import SDK, { SlashURL } from '@synonymdev/slashtags-sdk';
 import { Server } from '@synonymdev/slashtags-auth';
@@ -83,7 +83,7 @@ wss.on('connection', (socket) => {
   console.log('connection seen')
   const jrpc = new JsonRPC();
 
-  socket.onmessage = (event) => jrpc.messageHandler(event.data);
+  socket.onmessage = (event) => jrpc.messageHandler(event.data).catch((err) => { });
   jrpc.toStream = (msg) => socket.send(msg);
 
   jrpc.on('clientID', ['clientID'], (clientID) => {

@@ -1,6 +1,7 @@
 {
   "type": "module",
   "scripts": {
+    "reset": "rm -rf storage/cores storage/primary-key",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },

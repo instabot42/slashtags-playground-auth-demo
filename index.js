@@ -77,7 +77,7 @@ function validateToken(token, user) {
   return true
 }
 
-const wss = new WebSocketServer({ port: 9002 });
+const wss = new WebSocketServer({ port: 9002, host: '0.0.0.0' });
 wss.on('connection', (socket) => {
   console.log('connection seen')
   const jrpc = new JsonRPC();

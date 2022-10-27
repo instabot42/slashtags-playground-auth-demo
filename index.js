@@ -48,7 +48,7 @@ const server = new Server(slashtag, {
     const user = SlashURL.encode(remote)
     console.log("Got magic link request, from:", user)
     return {
-      url: `https://www.synonym.to/playground/accounts?user=` + user,
+      url: `https://www.synonym.to/products/slashtags/playground/accounts?user=` + user,
       validUntil: Number(new Date() + 1000 * 60 * 20)
     }
   }

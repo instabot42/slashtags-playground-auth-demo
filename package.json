@@ -1,6 +1,7 @@
 {
   "type": "module",
   "scripts": {
+    "reset": "rm -rf storage/cores storage/primary-key",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
@@ -10,7 +11,6 @@
   "dependencies": {
     "@synonymdev/slashtags-auth": "^1.0.0-alpha.1",
     "@synonymdev/slashtags-sdk": "^1.0.0-alpha.17",
-    "fastify": "^3.25.3",
     "jsonrpc-lite": "^2.2.0",
     "nodemon": "^2.0.14",
     "simple-jsonrpc-js": "^1.2.0",

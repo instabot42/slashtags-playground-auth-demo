@@ -1,5 +1,4 @@
 import jrpcLite from 'jsonrpc-lite';
-import { fastify } from 'fastify';
 import JsonRPC from 'simple-jsonrpc-js';
 import {WebSocketServer} from 'ws'
 import fs from 'fs'
@@ -26,7 +25,7 @@ const exists = await publicDrive.get('/profile.json')
 if (!exists) await publicDrive.put('/profile.json', Buffer.from(JSON.stringify({
   name: 'SlashAuth Demo',
   image:
-    "data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M26.5259 0.135322C39.7212 1.52962 49.259 13.3508 47.8647 26.5259C46.4704 39.7212 34.6492 49.259 21.4741 47.8647C8.27882 46.4704 -1.25897 34.6492 0.135322 21.4741C1.52962 8.27882 13.3508 -1.25897 26.5259 0.135322ZM26.0005 5.1467C15.6342 4.03531 6.23789 11.6332 5.1467 21.9995C4.03531 32.3658 11.6332 41.7621 21.9995 42.8533C32.3658 43.9647 41.7621 36.3668 42.8533 26.0005C43.9647 15.6342 36.3668 6.23789 26.0005 5.1467Z' fill='url(%23paint0_linear_3541_13934)'/%3E%3Cdefs%3E%3ClinearGradient id='paint0_linear_3541_13934' x1='41.1' y1='40.35' x2='8.1' y2='7.35' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%23DB00FF'/%3E%3Cstop offset='1' stop-color='%23FE0099'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E%0A",
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16.7998 21.3385L16.7998 16.8423L31.1998 12.96L31.1998 17.4561L16.7998 21.3385ZM31.1998 24.0852L16.7998 27.9676L16.7998 27.9309L16.7998 23.4714L16.7998 23.4348L31.1998 19.5524L31.1998 19.5891L31.1998 24.0486L31.1998 24.0852ZM31.1998 30.6777L16.7998 34.56L16.7998 30.0639L31.1998 26.1815L31.1998 30.6777Z' fill='white'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M26.5259 0.135322C39.7212 1.52962 49.259 13.3508 47.8647 26.5259C46.4704 39.7212 34.6492 49.259 21.4741 47.8647C8.27882 46.4704 -1.25897 34.6492 0.135322 21.4741C1.52962 8.27882 13.3508 -1.25897 26.5259 0.135322ZM26.0005 5.1467C15.6342 4.03531 6.23789 11.6332 5.1467 21.9995C4.03531 32.3658 11.6332 41.7621 21.9995 42.8533C32.3658 43.9647 41.7621 36.3668 42.8533 26.0005C43.9647 15.6342 36.3668 6.23789 26.0005 5.1467Z' fill='url(%23paint0_linear_2800_197633)'/%3E%3Cdefs%3E%3ClinearGradient id='paint0_linear_2800_197633' x1='41.1' y1='40.35' x2='8.1' y2='7.35' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%23DB00FF'/%3E%3Cstop offset='1' stop-color='%23FE0099'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E",
   bio: 'Web of trust for all',
 })))
 
@@ -76,8 +75,6 @@ function validateToken(token, user) {
   return true
 }
 
-const app = fastify();
-
 const wss = new WebSocketServer({ port: 9002 });
 
 wss.on('connection', (socket) => {
@@ -101,5 +98,4 @@ wss.on('connection', (socket) => {
   });
 });
 
-console.log(`Server is now listenng on port 9002`);
-app.listen(9000, function () {});
+console.log(`Server is now listenng on port ws://localhost:9002`);
